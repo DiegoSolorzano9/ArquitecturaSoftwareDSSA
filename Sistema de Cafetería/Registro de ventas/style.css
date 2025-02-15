@@ -1,0 +1,403 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Contenedor Principal */
+.contenedor{
+    width: 100%;
+    height: 160vh;
+    background-color: #29353C;
+    font-family: sans-serif;
+    color: white;
+}
+
+/************************ Encabezado **************************/
+/* Contenedor de Encabezado */
+.encabezado{
+    width: 95%;
+    height: 12%;
+    display: flex;
+    justify-content: end;   
+}
+
+/*Imagen Logo*/
+.ImgLogo{
+    width: 10%;
+    height: 100%;
+    filter: invert(1) brightness(2); 
+}
+
+/************************ Contenido **************************/
+/* Contenedor de Contenido*/
+.contenido{
+    width: 100%;
+    height: 88%;
+}
+
+/******* Busqueda de cliente por CI *******/
+.BusquedaCI {
+    width: 100%;
+    height: 8%;
+    padding: 0 5%;
+}
+
+.Busqueda {
+    display: flex;
+    align-items:center; 
+    height: 50%;
+    width: 20%;
+    margin: 2% 0 10% 5.5%;
+}
+
+.ImgBusqueda {
+    width: 15%;
+    height: 100%;
+    background-color: #768A96;
+    border-radius: 0 10px 10px 0;
+}
+
+.InputBusqueda{
+    background-color: #E6E6E6; 
+    border: none; 
+    height: 100%; 
+    padding: 4%; 
+    border-radius: 10px 0 0px 10px;
+}
+
+/******* Resultado de busqueda *******/
+.DatosEncontrados{
+    display: flex;
+    align-items:center; 
+    height: 12%;
+    width: 100%;
+    padding: 2% 5% 3% 10%; 
+}
+
+.ResultadoBusqueda{
+    background-color: #E6E6E6; 
+    border: none; 
+    height: 100%; 
+    border-radius: 10px;
+}
+
+/******* Productos Consumidos *******/
+.ProductosConsumidos{
+    display: flex;
+    align-items:center; 
+    height: 5%;
+    width: 100%;
+    padding: 0 5% 0 5%; 
+}
+
+#categorias{
+    width: 12%;
+    height: 80%;
+    background-color: #E6E6E6; 
+    border: none; 
+    border-radius: 10px;
+}
+
+
+/* Carrusel de Cards */
+.carrusel-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    padding: 20px 0;
+}
+
+.carrusel-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.carrusel {
+    display: flex;
+    transition: transform 2s ease;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.card {
+    flex: 0 0 250px;
+    background: #E6E6E6;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menuCard {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.menuCard button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #768A96;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.menuCard button.active {
+    background: #4a90e2;
+    color: white;
+}
+
+.contenidoCard {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.contenidoCard img {
+    width: 80%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.contenidoCard p {
+    font-weight: 500;
+    color: #333;
+}
+
+.funcionesCard {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    color: black;
+}
+
+.funcionesCard h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.funcionesCard input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.funcionesCard button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #4a90e2;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.funcionesCard button:hover {
+    background: #357abd;
+}
+
+.boton-carrusel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    z-index: 2;
+}
+
+.boton-carrusel:hover {
+    background: #f0f0f0;
+}
+
+.boton-carrusel.prev {
+    left: -20px;
+}
+
+.boton-carrusel.next {
+    right: -20px;
+}
+
+.boton-carrusel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .card {
+        flex: 0 0 200px;
+    }
+    
+    .boton-carrusel {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        flex: 0 0 180px;
+    }
+    
+    .boton-carrusel {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Indicadores de página */
+.indicadores {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.indicador {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.indicador.activo {
+    background: #5fa0ea;
+}
+
+
+/***** Listado de productos ****/
+/* Contenedor de la tabla */
+.ListadoProductos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 40px auto;
+}
+
+/* Estilos de la tabla */
+.TablaProductos {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: #DFEBF6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+/* Encabezado */
+.TablaProductos thead {
+    background-color: #768A96;
+    color: white;
+    font-weight: bolder;
+}
+
+/* Celdas */
+.CeldaProductos, td, th {
+    padding: 10px;
+}
+
+/* Icono de eliminar */
+.IconoEliminar {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.IconoEliminar:hover {
+    transform: scale(1.2);
+}
+
+/**** Botón Confirmar ****/
+/* Contenedor del botón */
+.BtnConfirmar {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 20px;
+    width: 95%;
+}
+
+.BtnConfirmar button {
+    background-color: #4a90e2; 
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto hover */
+.BtnConfirmar button:hover {
+    background-color: #357abd; /* Un tono más oscuro */
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Efecto clic */
+.BtnConfirmar button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************************ Pie de Página **************************/
+/* Contenedor de Pie de página*/
+.piePagina{
+    width: 100%;
+    height: 20%;
+}
+
+
+
+
+
+
+
+
+

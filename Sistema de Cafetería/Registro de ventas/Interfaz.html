@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de ventas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor">
+        <!----------------------------------- ENCABEZADO -------------------------------------------------->
+        <header class="encabezado">
+            <img src="img/Logo.png" class="ImgLogo">
+        </header>
+
+        <!----------------------------------- CONTENIDO -------------------------------------------------->
+        <section class="contenido">
+            <!-- Búsqueda de cliente por CI -->
+            <div class="BusquedaCI">
+                <h1>Datos Cliente</h1>
+                <div class="Busqueda">
+                    <label for="ci" style="margin: 0 29% 0  0;">CI</label>
+                    <input type="search" id="ci" class="InputBusqueda" placeholder="Ingrese CI ...">
+                    <img src="img/IconoBusqueda.svg" class="ImgBusqueda">
+                </div>                
+            </div>
+
+            <!-- Resultado de busqueda -->
+            <div class="DatosEncontrados">
+                <!-- Nombre del cliente encontrado -->
+                <label for="" style="margin: 3% 3% 0  0;">Nombre</label>
+                <input type="text" name="nombre" id="nombre" class="ResultadoBusqueda" style="margin: 3% 10% 0 0; width: 30%;">
+                <!-- CI del cliente encontrado -->
+                <label for="" style="margin: 3% 3% 0  0;">CI</label>
+                <input type="number" name="ci" id="ci" class="ResultadoBusqueda" style="width: 5%; margin: 3% 15% 0 0; width: 30%;">
+            </div>
+
+            <!-- Productos consumidos -->
+            <div class="ProductosConsumidos">
+                <h1 style="margin: 0 15% 0 0;">Productos Consumidos</h1>
+                <label for="categorias" style="margin: 0 2% 0 0;">Categoría:</label>
+                <!-- Categorias de productos -->
+                <select id="categorias">
+                    <option value="#"></option>
+                    <option value="cafes">Cafés</option>
+                    <option value="te-infusiones">Tés e Infusiones</option>
+                    <option value="pasteles">Pasteles y Dulces</option>
+                    <option value="sandwiches">Sándwiches y Bocadillos</option>
+                    <option value="jugos-batidos">Jugos y Batidos</option>
+                    <option value="snacks">Snacks y Aperitivos</option>
+                </select>
+            </div>
+
+            <!-- Carrusel de  Productos-->
+            <div class="carrusel-container">
+                <button class="boton-carrusel prev" onclick="moverCarrusel(-1)">&#9664;</button>
+                <div class="carrusel-wrapper">
+                    <div class="carrusel" id="carrusel">
+                        <!-- Las cards se generarán dinámicamente -->
+                    </div>
+                </div>
+                <button class="boton-carrusel next" onclick="moverCarrusel(1)">&#9654;</button>
+                <div class="indicadores" id="indicadores"></div>
+            </div>
+
+
+            <!-- Listado de productos -->
+            <div class="ListadoProductos">
+                <table class="TablaProductos">
+                        <thead>
+                            <tr>
+                                <th class="CeldaProductos">Código</th>
+                                <th class="CeldaProductos">Nombre</th>
+                                <th class="CeldaProductos">Existencia</th>
+                                <th class="CeldaProductos">Cantidad</th>
+                                <th class="CeldaProductos">Precio Unitario</th>
+                                <th class="CeldaProductos">Precio Total</th>
+                                <th class="CeldaProductos">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PO-459</td>
+                                <td>Torta de Chocolate</td>
+                                <td>5</td>
+                                <td>1</td>
+                                <td>8</td>
+                                <td>8</td>
+                                <td><img src="img/IconoBasura.svg" alt="Eliminar" class="IconoEliminar"></td>
+                            </tr>
+                            <tr>
+                                <td>PO-460</td>
+                                <td>Tarta de Queso</td>
+                                <td>10</td>
+                                <td>2</td>
+                                <td>6</td>
+                                <td>12</td>
+                                <td><img src="img/IconoBasura.svg" alt="Eliminar" class="IconoEliminar"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color: #768A96; color: white;">
+                                <td colspan="5" style="text-align: end; font-size: large;"><b>Total</b></td>
+                                <td style="text-align: end; font-size: large; width: 5%;"><b>20</b></td>
+                                <td style="text-align: start; font-size: large;"><b>BS.</b></td>
+
+                            </tr>
+                        </tfoot>
+                </table>
+            </div>
+
+            <!-- Botón de confirmar venta -->
+            <div class="BtnConfirmar">
+                <button>Confirmar</button>
+            </div>
+
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
