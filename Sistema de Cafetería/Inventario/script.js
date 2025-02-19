@@ -107,6 +107,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+// Alerta de stock mínimo
+document.addEventListener("DOMContentLoaded", function () {
+    const filas = document.querySelectorAll(".TablaProductos tbody tr");
+
+    filas.forEach(fila => {
+        const stockDisponible = parseInt(fila.children[4].textContent.trim());
+        const stockMinimo = parseInt(fila.children[5].textContent.trim());
+
+        if (stockDisponible === stockMinimo) {
+            fila.style.backgroundColor = "red";
+            fila.style.color = "white"; // Para mejorar la visibilidad del texto
+        }
+    });
+});
+
 
 
 
