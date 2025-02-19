@@ -1,0 +1,170 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Encabezado */
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1F2A30;
+    border-radius: 10px;
+}
+
+.cajero-info {
+    display: flex;
+    align-items: center;
+}
+
+.ImgCajero {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.ImgLogo {
+    width: 10%;
+    height: auto;
+    filter: invert(1) brightness(2);
+}
+
+.icono-volver {
+    width: 30px;
+    height: auto;
+    margin-right: 5px;
+}
+
+.volver a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.volver a:hover {
+    text-decoration: underline;
+}
+
+/* Contenido Principal */
+.contenido {
+    text-align: center;
+    margin-top: 20px;
+    padding: 3% 5%;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Tabla de Detalles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #768A96;
+    color: white;
+}
+
+/* Total */
+.total {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+/* Botón Generar PDF */
+.BtnGenerarPDF {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #0275d8;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #025aa5;
+}
+
+
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Contenedor Principal */
+.contenedor{
+    width: 100%;
+    height: 160vh;
+    background-color: #29353C;
+    font-family: sans-serif;
+    color: white;
+}
+
+
+
+/************************ Encabezado **************************/
+/* Contenedor de Encabezado */
+.encabezado{
+    width: 100%;
+    height: 12%;
+    display: flex;
+    justify-content: space-evenly;  
+    align-items: center; 
+    margin: 0 auto;
+    background-color: #2D3E49;
+}
+
+.enlaceMenu{
+    color: white; 
+    text-decoration: none;
+    padding: 15px 20px; 
+    border-radius: 10px;
+    
+}
+
+.enlaceMenu:hover{
+    background-color: #768A96;
+}
+
+/*Imagen Logo*/
+.ImgLogo{
+    width: 10%;
+    height: 100%;
+    filter: invert(1) brightness(2); 
+}
+

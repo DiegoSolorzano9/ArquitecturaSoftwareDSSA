@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arqueo de Cajas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <!----------------------------------- ENCABEZADO -------------------------------------------------->
+    <header class="encabezado">
+      <div class="menu"><a href="../Registro de ventas/Interfaz.html" class="enlaceMenu">Registro de ventas</a></div>
+      <div class="menu"><a href="../Inventario/interfaz.php" class="enlaceMenu">Inventario</a></div>
+      <div class="menu"><a href="#" class="enlaceMenu">Arqueo de caja</a></div>
+      <img src="img/Logo.png" class="ImgLogo">
+    </header>
+
+    <section class="contenido">
+      <h1>Arqueo de Cajas</h1>
+
+      <!-- Selección de Fechas -->
+      <div class="filtros">
+        <label>
+          <input type="radio" name="fechaFiltro" id="todos" checked> Todos
+        </label>
+        <label>
+          <input type="radio" name="fechaFiltro" id="rango"> Rango de Fechas
+        </label>
+        <br>
+        <div id="seleccionFechas" class="fechas oculto" style="margin: 2%;">
+          <label for="fechaInicio">Desde:</label>
+          <input type="date" id="fechaInicio">
+          <label for="fechaFin">Hasta:</label>
+          <input type="date" id="fechaFin">
+        </div>
+        <!-- Se remueve el atributo onclick -->
+        <button id="botonBuscar" style="margin: 2%;">Buscar</button>
+      </div>
+
+      <!-- Tabla de Resultados -->
+      <div class="ListadoDatos">
+        <table id="tablaDatos">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Caja</th>
+              <th>Ingresos Totales</th>
+              <th>Detalle Productos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Se llenará dinámicamente -->
+          </tbody>
+        </table>
+      </div>
+      <div class="BtnGenerarPDF" style="margin-top: 20px;">
+        <button id="btnGenerarPDF">Generar PDF</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Cargar el script después del contenido HTML -->
+  <script src="script.js"></script>
+</body>
+</html>
