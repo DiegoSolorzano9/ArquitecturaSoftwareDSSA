@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const stockMinimo = parseInt(fila.children[5].textContent.trim());
 
         if (stockDisponible === stockMinimo) {
-            fila.style.backgroundColor = "red";
+            fila.style.backgroundColor = "#f28080";
             fila.style.color = "white"; // Para mejorar la visibilidad del texto
         }
     });
