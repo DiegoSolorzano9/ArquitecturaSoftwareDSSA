@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';
+include '../conexion.php';
 header('Content-Type: application/json');
 
 $ci = isset($_GET['ci']) ? trim($_GET['ci']) : '';
@@ -9,7 +9,7 @@ if ($ci === '') {
     exit;
 }
 
-$stmt = $conexion->prepare("SELECT nombre FROM clientes WHERE ci = ?");
+$stmt = $conexion->prepare("SELECT nombre FROM cliente WHERE ci = ?");
 $stmt->bind_param("s", $ci);
 $stmt->execute();
 $result = $stmt->get_result();

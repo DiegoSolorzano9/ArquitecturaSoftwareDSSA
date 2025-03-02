@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $usuario = "root";
-$bd = "cafeteria_test";
+$bd = "cafeteriadb";
 
 // Conexión sin imprimir mensajes
 $conexion = new mysqli($host, $usuario, "", $bd);

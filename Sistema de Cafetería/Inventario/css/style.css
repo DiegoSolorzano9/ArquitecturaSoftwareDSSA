@@ -1,0 +1,336 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Contenedor Principal */
+.contenedor{
+    width: 100%;
+    height: 160vh;
+    background-color: #29353C;
+    font-family: sans-serif;
+    color: white;
+}
+
+/************************ Encabezado **************************/
+/* Contenedor de Encabezado */
+.encabezado{
+    width: 100%;
+    height: 12%;
+    display: flex;
+    justify-content: space-evenly;  
+    align-items: center; 
+    margin: 0 auto;
+    background-color: #2D3E49;
+}
+
+.enlaceMenu{
+    color: white; 
+    text-decoration: none;
+    padding: 15px 20px; 
+    border-radius: 10px;
+    
+}
+
+.enlaceMenu:hover{
+    background-color: #768A96;
+}
+
+
+
+
+
+
+
+
+
+
+
+/************ Alertas **************/
+
+#campana-alerta {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+}
+
+.ImgAlerta {
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 5px 10px; 
+    border-radius: 10px;
+    filter: invert(1) brightness(2); /* Mantiene el brillo al 100% para la imagen original */
+}
+
+.ImgAlerta:hover{
+    filter: invert(0) brightness(1); /* Restaura el brillo normal de la imagen */
+    background-color: #768A96; /* Cambia el color de fondo al pasar el cursor */
+    cursor: pointer; /* Cambiar el cursor a pointer */
+}
+
+#contador-alertas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+#campana-alerta:hover .ImgAlerta {
+    transform: scale(1.1);
+}
+
+#contador-alertas {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+/* Estilos para el modal */
+#modal-alerta {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+#modal-contenido {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease;
+    background-color: #2D3E49;
+
+}
+
+
+#cerrar-modal {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#cerrar-modal:hover {
+    background: darkred;
+}
+
+/* Estilos para las cards de alertas */
+#contenedor-alertas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alert-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #dfebf6;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.alert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-card p {
+    margin: 5px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Imagen Logo*/
+.ImgLogo{
+    width: 10%;
+    height: 100%;
+    filter: invert(1) brightness(2); 
+}
+
+/************************ Contenido **************************/
+/* Contenedor de Contenido*/
+.contenido{
+    width: 100%;
+    height: 88%;
+    padding: 0 5% ;
+}
+
+/******* Contenedor de busqueda y botones *******/
+.FuncionesInventario{
+    display: flex;
+    align-items: center;
+    height: 10%;
+    width: 100%;
+}
+
+/******* Botones de ingresos y salidas *******/
+.botonesIngresosSalidas{
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    height: 45%;
+}
+
+.botonIngresos, .botonSalidas, .botonInventario{
+    padding: 15px 90px;
+    border-radius: 20px 20px 0 0; /* Para dar forma de pestaña */
+    background-color: transparent;
+    color: white;
+    font-weight: bolder;
+    border: 3px solid #768A96; /* Borde de las pestañas */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0 10px;
+}
+
+.botonIngresos:hover, .botonSalidas:hover, .botonInventario:hover {
+    background-color: #768A96;
+    color: white;
+}
+
+.botonIngresos:active, .botonSalidas:active, .botonInventario:active {
+    background-color: #e9eff3; /* Color de fondo cuando el botón está activo */
+}
+
+.botonIngresos.selected, .botonSalidas.selected, .botonInventario.selected {
+    background-color: rgb(255, 106, 106); /* Color de fondo cuando la pestaña está seleccionada */
+    color: white; /* Mantener el texto blanco cuando está seleccionado */
+    border-bottom: 2px solid #29353C; /* Resaltar el borde inferior cuando está seleccionado */
+}
+
+/******* Busqueda de Producto *******/
+.BusquedaProducto {
+    display: flex;
+    align-items:center; 
+    justify-content: end;
+    height: 45%;
+    width: 40%;
+}
+
+.ImgBusqueda {
+    width: 15%;
+    height: 100%;
+    background-color: #768A96;
+    border-radius: 0 10px 10px 0;
+}
+
+.InputBusqueda{
+    background-color: #E6E6E6; 
+    border: none; 
+    height: 100%; 
+    width: 45%;
+    border-radius: 10px 0 0px 10px;
+}
+
+
+/***** Listado de productos ****/
+/* Contenedor de la tabla */
+.ListadoProductos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 40px auto;
+}
+
+/* Estilos de la tabla */
+.TablaProductos {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: #DFEBF6;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: black;
+}
+
+/* Encabezado */
+.TablaProductos thead {
+    background-color: #768A96;
+    color: white;
+    font-weight: bolder;
+}
+
+/* Celdas */
+.CeldaProductos, td, th {
+    padding: 10px;
+}
+
+
+
+/************************ Pie de Página **************************/
+/* Contenedor de Pie de página*/
+.piePagina{
+    width: 100%;
+    height: 20%;
+}
+
+
+
+
+
+
+
+
+

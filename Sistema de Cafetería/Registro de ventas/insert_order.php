@@ -1,56 +1,60 @@
 <?php
-include 'connection.php';
+include '../conexion.php';
 
-
-$cliente = trim($_POST['cliente']);
 $ci = isset($_POST['ci']) ? trim($_POST['ci']) : "";
+$cliente = isset($_POST['nombre']) ? trim($_POST['nombre']) : "";
 $items = json_decode($_POST['items'], true);
 
-if (!$items) {
-    echo "Error: Formato de items inválido";
+if (!$items || empty($cliente) || empty($ci)) {
+    echo json_encode(["error" => "Datos inválidos o incompletos"]);
     exit;
 }
 
 try {
-    // Si hay CI, verificamos en la base de datos
-    if ($ci !== "") {
-        $stmt = $conexion->prepare("SELECT nombre FROM clientes WHERE ci = ?");
-        $stmt->bind_param("s", $ci);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    $conexion->begin_transaction();
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            if ($row['nombre'] !== $cliente && $cliente !== "") {
-                echo "Error: El CI ya está registrado con otro nombre.";
-                exit;
-            }
-        } else {
-            if ($cliente !== "") {
-                $stmt_insert = $conexion->prepare("INSERT INTO clientes (nombre, ci) VALUES (?, ?)");
-                $stmt_insert->bind_param("ss", $cliente, $ci);
-                $stmt_insert->execute();
-            }
-        }
+    // Verificar si el cliente ya existe
+    $stmt = $conexion->prepare("SELECT id FROM cliente WHERE ci = ?");
+    $stmt->bind_param("s", $ci);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $cliente_id = $row['id'];
+    } else {
+        // Insertar nuevo cliente si no existe
+        $stmt_insert = $conexion->prepare("INSERT INTO cliente (nombre, ci) VALUES (?, ?)");
+        $stmt_insert->bind_param("ss", $cliente, $ci);
+        $stmt_insert->execute();
+        $cliente_id = $conexion->insert_id;
     }
 
     // Insertar pedido
-    $sqlEncabezado = "INSERT INTO pedidos (cliente, fecha_hora, estado) VALUES ('$cliente', NOW(), 'pendiente')";
-    $conexion->query($sqlEncabezado);
+    $stmt_pedido = $conexion->prepare("INSERT INTO pedido (cliente_id, fecha_hora) VALUES (?, NOW())");
+    $stmt_pedido->bind_param("i", $cliente_id);
+    $stmt_pedido->execute();
     $id_pedido = $conexion->insert_id;
 
-    foreach ($items as $item) {
-        $producto = $item['producto'];
-        $cantidad = $item['cantidad'];
-        $precio = $item['precio_unitario'];
+    // Insertar detalles del pedido con recetas en lugar de productos
+    $stmt_detalle = $conexion->prepare("INSERT INTO detallepedido (pedido_id, receta_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)");
 
-        $sqlDetalle = "INSERT INTO detalle_pedido (pedido_id, producto, cantidad, precio_unitario)
-                       VALUES ('$id_pedido', '$producto', '$cantidad', '$precio')";
-        $conexion->query($sqlDetalle);
+    foreach ($items as $item) {
+        $receta_id = intval($item['id']);
+        $cantidad = intval($item['cantidad']);
+        $precio_unitario = floatval($item['precio_unitario']);
+
+        // Insertar el detalle del pedido
+        $stmt_detalle->bind_param("iiid", $id_pedido, $receta_id, $cantidad, $precio_unitario);
+        $stmt_detalle->execute();
     }
 
-    echo "Pedido guardado con éxito. ID: " . $id_pedido;
+    $conexion->commit();
+    echo json_encode(["success" => "Pedido guardado con éxito", "id_pedido" => $id_pedido]);
 } catch (Exception $e) {
-    echo "Error en la operación: " . $e->getMessage();
+    $conexion->rollback();
+    echo json_encode(["error" => "Error en la operación: " . $e->getMessage()]);
 }
+
+$conexion->close();
 ?>

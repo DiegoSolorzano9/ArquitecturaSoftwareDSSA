@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arqueo de Cajas</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="contenedor">
+        <!-- ENCABEZADO -->
+        <header class="encabezado">
+            <div class="menu"><a href="../Registro de ventas/Interfaz.html" class="enlaceMenu">Registro de ventas</a></div>
+            <div class="menu"><a href="../Inventario/interfaz.php" class="enlaceMenu">Inventario</a></div>
+            <div class="menu"><a href="#" class="enlaceMenu">Arqueo de caja</a></div>
+            <!-- Contenedor para la campana y el contador -->
+            <div id="campana-alerta">
+                <img src="img/IconoAlerta.svg" class="ImgAlerta">
+                <span id="contador-alertas">0</span>
+            </div>        
+            <img src="img/Logo.png" class="ImgLogo">
+        </header>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <article class="contenido">
+            <div class="infoUsuarioFecha">
+                <p><b>Usuario:</b><span id="nombreUsuario">Usuario Genérico</span></p>
+                <p><b>Fecha:</b><span id="fechaHora"></span></p>
+            </div>
+        
+            <form id="formularioArqueo">
+                <div class="form-column">
+                    <div class="cortesMoneda">
+                        <!-- Columna 1: de 20ctvs a 5bs -->
+                        <div class="form-group">
+                            <label for="20ctvs">20 ctvs:</label>
+                            <input type="number" id="20ctvs" name="20ctvs" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="50ctvs">50 ctvs:</label>
+                            <input type="number" id="50ctvs" name="50ctvs" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="1bs">1 bs:</label>
+                            <input type="number" id="1bs" name="1bs" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="2bs">2 bs:</label>
+                            <input type="number" id="2bs" name="2bs" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="5bs">5 bs:</label>
+                            <input type="number" id="5bs" name="5bs" min="0" value="0">
+                        </div>
+                    </div>
+
+                    <div class="cortesMoneda">
+                        <!-- Columna 2: de 10bs a 200bs -->
+                        <div class="form-group">
+                            <label for="10bs">10 bs:</label>
+                            <input type="number" id="10bs" name="10bs" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="20bs">20 bs:</label>
+                            <input type="number" id="20bs" name="20bs" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="50bs">50 bs:</label>
+                            <input type="number" id="50bs" name="50bs" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="100bs">100 bs:</label>
+                            <input type="number" id="100bs" name="100bs" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="200bs">200 bs:</label>
+                            <input type="number" id="200bs" name="200bs" min="0" value="0">
+                        </div>
+                    </div>
+                </div>
+                    
+    
+                <!-- Mostrar el total calculado -->
+                <div class="total">
+                    Total: <span id="totalCalculado">0.00</span> bs
+                </div>
+    
+                <!--  botones de guardar y ver detalles -->
+                <div class="botones-container">
+                    <button type="submit" class="btn-guardar">Guardar Arqueo</button>
+                    <button type="button" id="verDetallesBtn" class="btn-detalles">Ver Detalles</button>
+                </div>
+            </form>
+    
+            <!-- Área para mostrar detalles -->
+            <div id="detallesArqueo" style="display:none;">
+                <h3>Detalles de las Monedas/Billetes:</h3>
+                <p>Registrado por: <span id="detalleUsuario"></span></p>
+                <p>Fecha y hora: <span id="detalleFecha"></span></p>
+                <ul id="detallesLista">
+                    <!-- Aquí se mostrarán los detalles -->
+                </ul>
+            </div>
+    
+            <script src="js/script.js"></script>
+        </article>
+    </div>
+</body>
+</html>

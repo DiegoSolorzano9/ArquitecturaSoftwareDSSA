@@ -115,7 +115,6 @@ function incrementarCantidad(productoId) {
   const cantidad = parseInt(cantidadInput.value) || 0;
 
   if (cantidad > 0) {
-    // Buscar el producto usando comparación flexible
     const producto = productos.find(p => p.id == productoId);
     if (!producto) {
       alert("Producto no encontrado.");
@@ -123,21 +122,21 @@ function incrementarCantidad(productoId) {
     }
 
     items.push({
-      id: producto.id,                        // Código del producto
-      nombre: producto.nombre,                // Nombre del producto
-      clase: producto.clase,                  // Clase (por ejemplo, bebida, snack, etc.)
-      cantidad: cantidad,                     // Cantidad seleccionada
-      precio_unitario: producto.precio,       // Precio unitario
-      precio_total: producto.precio * cantidad // Subtotal = precio unitario * cantidad
+      id: producto.id,
+      nombre: producto.nombre,
+      clase: producto.categoria, // Cambia 'producto.clase' por 'producto.categoria'
+      cantidad: cantidad,
+      precio_unitario: producto.precio,
+      precio_total: producto.precio * cantidad
     });
 
     actualizarTabla();
-    // Resetear el input
     cantidadInput.value = 0;
   } else {
     alert("Ingrese una cantidad mayor que cero.");
   }
 }
+
 
 function actualizarTabla() {
   const tbody = document.querySelector('.TablaProductos tbody');
@@ -173,40 +172,37 @@ function cargarClases() {
   fetch("get_classes.php")
     .then(response => response.json())
     .then(data => {
-      const selectClases = document.getElementById("categorias"); // El select aún se llama 'categorias'
-      selectClases.innerHTML = "<option value='#'>Seleccione una clase</option>";
+      const selectClases = document.getElementById("categorias");
+      selectClases.innerHTML = "<option value='#'>Seleccione una categoría</option>";
 
-      data.forEach(clase => {
+      data.forEach(categoria => {
         let option = document.createElement("option");
-        option.value = clase.toLowerCase().replace(/\s+/g, "-");
-        option.textContent = clase;
+        option.value = categoria.toLowerCase().replace(/\s+/g, "-");  // Normalizamos el nombre de la categoría
+        option.textContent = categoria;
         selectClases.appendChild(option);
       });
 
       // Asignar el evento onchange para filtrar productos por categoría
       selectClases.addEventListener('change', function() {
         const categoriaSeleccionada = selectClases.value;
-        let productosFiltrados = productos;
 
+        // Filtrar productos según la categoría seleccionada
+        let productosFiltrados = productos;
         if (categoriaSeleccionada !== "#") {
-          productosFiltrados = productos.filter(producto => producto.clase.toLowerCase().replace(/\s+/g, "-") === categoriaSeleccionada);
+          productosFiltrados = productos.filter(producto => producto.categoria.toLowerCase().replace(/\s+/g, "-") === categoriaSeleccionada);
         }
 
-        productosFiltrados.sort((a, b) => a.nombre.localeCompare(b.nombre)); // Ordenar alfabéticamente
-        generarCards(productosFiltrados); // Actualizar el carrusel
-        generarIndicadores();
-        actualizarBotones();
+        // Ordenar los productos alfabéticamente por nombre
+        productosFiltrados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+        // Actualizar la visualización de los productos filtrados
+        generarCards(productosFiltrados); // Esta función debería generar las tarjetas de productos
+        generarIndicadores(); // Si es necesario
+        actualizarBotones(); // Si es necesario
       });
     })
-    .catch(error => console.error("Error al cargar clases:", error));
+    .catch(error => console.error("Error al cargar categorías:", error));
 }
-
-
-
-
-
-
-
 
 
 // Función para finalizar el pedido
@@ -219,12 +215,16 @@ function finalizarPedido() {
       return;
   }
 
-  // Asegurar que cada item tenga la clave "producto"
+  if (!nombre || !ci) {
+      alert("El nombre y el CI son obligatorios.");
+      return;
+  }
+
+  // Asegurar que cada item tenga el ID del producto correcto
   items = items.map(item => ({
-      producto: item.nombre,  // Asegurar que se envía como "producto"
+      id: item.id,  // ID del producto (clave foránea en detallepedido)
       cantidad: item.cantidad,
-      precio_unitario: item.precio_unitario,
-      precio_total: item.precio_total
+      precio_unitario: item.precio_unitario
   }));
 
   var xhr = new XMLHttpRequest();
@@ -233,11 +233,16 @@ function finalizarPedido() {
 
   xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
-          alert(xhr.responseText);
-          items = [];
-          document.getElementById("ci").value = "";
-          document.getElementById("nombre").value = "";
-          actualizarTabla();
+          var response = JSON.parse(xhr.responseText);
+          if (response.success) {
+              alert(response.success);
+              items = [];  
+              document.getElementById("ci").value = "";
+              document.getElementById("nombre").value = "";
+              actualizarTabla();
+          } else {
+              alert("Error: " + response.error);
+          }
       }
   };
 
@@ -245,13 +250,9 @@ function finalizarPedido() {
   xhr.send(datos);
 }
 
-  
-  // Asignar la función al botón "Confirmar"
-  document.querySelector(".BtnConfirmar button").addEventListener("click", finalizarPedido);
-  
 
-
-
+// Asignar la función al botón "Confirmar"
+document.querySelector(".BtnConfirmar button").addEventListener("click", finalizarPedido);
   
 document.addEventListener("DOMContentLoaded", function () {
     // Asignar el evento onclick al icono del buscador
@@ -320,7 +321,100 @@ function agregarCliente() {
 
         document.addEventListener("DOMContentLoaded", function () {
             cargarClases();
-        });
+});
         
+
+/* Alerta de ingredientes bajos */
+document.addEventListener("DOMContentLoaded", function () {
+  let notificacionesVistas = false;
+  let ultimoContadorVisto = 0;
+
+  const campana = document.getElementById("campana-alerta");
+  if (!campana) {
+      console.error("No se encontró el elemento con id 'campana-alerta'");
+      return;
+  }
+
+  const campanaImg = campana.querySelector("img");
+  if (campanaImg) {
+      campanaImg.src = "img/IconoAlerta.svg";
+  }
+
+  const contadorAlertas = document.getElementById("contador-alertas");
+
+  // Crear modal
+  const modal = document.createElement("div");
+  modal.id = "modal-alerta";
+  modal.innerHTML = `
+      <div id="modal-contenido">
+          <h2 style="margin: 25px; color: white;">Alertas de Stock</h2>
+          <div id="contenedor-alertas"></div>
+          <button id="cerrar-modal">Cerrar</button>
+      </div>
+  `;
+  document.body.appendChild(modal);
+
+  // Función para cargar alertas
+  function cargarAlertas() {
+      fetch("alerta.php")
+          .then(response => response.json())
+          .then(alertas => {
+              const newCount = alertas.length;
+              if (newCount > 0 && (!notificacionesVistas || newCount > ultimoContadorVisto)) {
+                  contadorAlertas.style.display = "block";
+                  contadorAlertas.innerText = newCount;
+                  ultimoContadorVisto = newCount;
+                  notificacionesVistas = false;
+              } else {
+                  contadorAlertas.style.display = "none";
+              }
+
+              const contenedorAlertas = document.getElementById("contenedor-alertas");
+              contenedorAlertas.innerHTML = alertas.length > 0
+                  ? alertas.map(alerta => `
+                      <div class="alert-card">
+                          <p><strong>Producto:</strong> ${alerta.nombre}</p>
+                          <p><strong>Stock Disponible:</strong> ${alerta.stock_disponible}</p>
+                          <p>El producto ${alerta.nombre} tiene un stock disponible de ${alerta.stock_disponible}. El stock de ${alerta.nombre} está bajo. Compra más.</p>
+                      </div>
+                  `).join("")
+                  : `<p style="text-align: center;">No hay alertas</p>`;
+
+              // Agregar evento de clic a las cards
+              document.querySelectorAll(".alert-card").forEach(card => {
+                  card.addEventListener("click", () => {
+                      window.location.href = "../Inventario/interfaz.php";
+                  });
+              });
+          })
+          .catch(err => console.error("Error al cargar alertas:", err));
+  }
+
+  // Eventos
+  campana.addEventListener("click", () => {
+      cargarAlertas();
+      modal.style.display = "block";
+  });
+
+  document.getElementById("cerrar-modal").addEventListener("click", () => {
+      modal.style.display = "none";
+      notificacionesVistas = true;
+      contadorAlertas.style.display = "none";
+  });
+
+  modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+          modal.style.display = "none";
+          notificacionesVistas = true;
+          contadorAlertas.style.display = "none";
+      }
+  });
+
+  // Cargar alertas al inicio y cada 60 segundos
+  cargarAlertas();
+  setInterval(cargarAlertas, 60000);
+});
+
+
 
         

@@ -36,6 +36,141 @@
     background-color: #768A96;
 }
 
+/************ Alertas **************/
+
+#campana-alerta {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+}
+
+.ImgAlerta {
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 5px 10px; 
+    border-radius: 10px;
+    filter: invert(1) brightness(2); /* Mantiene el brillo al 100% para la imagen original */
+}
+
+.ImgAlerta:hover{
+    filter: invert(0) brightness(1); /* Restaura el brillo normal de la imagen */
+    background-color: #768A96; /* Cambia el color de fondo al pasar el cursor */
+    cursor: pointer; /* Cambiar el cursor a pointer */
+}
+
+#contador-alertas {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+#campana-alerta:hover .ImgAlerta {
+    transform: scale(1.1);
+}
+
+#contador-alertas {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+/* Estilos para el modal */
+#modal-alerta {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+#modal-contenido {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease;
+    background-color: #2D3E49;
+
+}
+
+
+#cerrar-modal {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#cerrar-modal:hover {
+    background: darkred;
+}
+
+/* Estilos para las cards de alertas */
+#contenedor-alertas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alert-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #dfebf6;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.alert-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-card p {
+    margin: 5px 0;
+}
+
 /*Imagen Logo*/
 .ImgLogo{
     width: 10%;

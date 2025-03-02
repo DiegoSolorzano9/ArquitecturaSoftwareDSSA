@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';
+include '../conexion.php';
 header('Content-Type: application/json');
 
 $ci = isset($_POST['ci']) ? trim($_POST['ci']) : "";
@@ -15,7 +15,7 @@ if ($ci === "" || $nombre === "") {
 }
 
 try {
-    $stmt = $conexion->prepare("SELECT nombre FROM clientes WHERE ci = ?");
+    $stmt = $conexion->prepare("SELECT nombre FROM cliente WHERE ci = ?");
     $stmt->bind_param("s", $ci);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -24,7 +24,7 @@ try {
         $row = $result->fetch_assoc();
         echo json_encode(["success" => "Cliente encontrado: " . $row['nombre'], "nombre" => $row['nombre']]);
     } else {
-        $stmt_insert = $conexion->prepare("INSERT INTO clientes (ci, nombre) VALUES (?, ?)");
+        $stmt_insert = $conexion->prepare("INSERT INTO cliente (ci, nombre) VALUES (?, ?)");
         $stmt_insert->bind_param("ss", $ci, $nombre);
         if ($stmt_insert->execute()) {
             echo json_encode(["success" => "Cliente agregado correctamente", "nombre" => $nombre]);
